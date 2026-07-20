@@ -12,13 +12,13 @@
 (setq ring-bell-function 'ignore)
 
 ;;; Font
-(defun lily/get-font ()
-  (cond
-   ((eq system-type 'darwin)     "Iosevka Nerd Font-15")
-   ((eq system-type 'gnu/linux)  "Iosevka Nerd Font-13")
-   (t                            "Monospace-12")))
+;;(defun lily/get-font ()
+;;  (cond
+;;   ((eq system-type 'darwin)     "Iosevka Nerd Font-15")
+;;   ((eq system-type 'gnu/linux)  "Iosevka Nerd Font-13")
+;;   (t                            "Monospace-12")))
 
-(add-to-list 'default-frame-alist `(font . ,(lily/get-font)))
+;;(add-to-list 'default-frame-alist `(font . ,(lily/get-font)))
 
 ;;; Frame size on startup
 (add-to-list 'default-frame-alist '(width  . 200))
@@ -112,3 +112,47 @@
     (when (string-match-p "\\*xref\\*\\|\\*compilation\\*\\|\\*grep\\*\\|\\*Help\\*"
                           (buffer-name (window-buffer win)))
       (delete-window win))))
+
+;;; Git gutter indicators (diff-hl — VS Code-style green/red bars)
+(global-diff-hl-mode 1)
+(diff-hl-margin-mode 1)    ; show in margin (fringe next to line numbers)
+(add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+
+;;; Magit diff fine-tuning
+(setq magit-diff-refine-hunk t)      ; word-level diffs within changed lines
+(setq magit-diff-paint-whitespace nil)
+
+;;; Ediff — VS Code-style side-by-side diff with red (old) / green (new)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-split-window-function 'split-window-horizontally)
+(setq ediff-diff-options "-w")       ; ignore whitespace
+
+;; Cleaner ediff: kill the control panel on quit
+(defun lily/ediff-cleanup ()
+  (when (and (boundp 'ediff-control-buffer)
+             (buffer-live-p ediff-control-buffer))
+    (kill-buffer ediff-control-buffer)))
+(add-hook 'ediff-quit-hook 'lily/ediff-cleanup)
+
+;; VS Code-style red/green backgrounds for ediff diffs
+(custom-set-faces
+ '(ediff-current-diff-A ((t (:background "#553333"))))   ; old (red-ish)
+ '(ediff-current-diff-B ((t (:background "#335533"))))   ; new (green-ish)
+ '(ediff-current-diff-C ((t (:background "#335555"))))   ; combined
+ '(ediff-fine-diff-A    ((t (:background "#773333"))))   ; old word-level
+ '(ediff-fine-diff-B    ((t (:background "#337733"))))   ; new word-level
+ '(ediff-even-diff-A    ((t (:background "#2a2a2a"))))   ; old even
+ '(ediff-even-diff-B    ((t (:background "#2a2a2a"))))   ; new even
+ '(ediff-odd-diff-A     ((t (:background "#333333"))))   ; old odd
+ '(ediff-odd-diff-B     ((t (:background "#333333")))))  ; new odd
+
+;;; Show commit diff — prompts for a commit and opens its changes (like VS Code)
+(defun lily/show-commit-diff (commit)
+  "Show the full diff of COMMIT via magit."
+  (interactive
+   (list (let ((default (or (ignore-errors
+                              (car (process-lines "git" "rev-parse" "HEAD")))
+                            "")))
+           (magit-read-branch-or-commit "Show commit" default))))
+  (magit-show-commit commit))

@@ -94,20 +94,51 @@
 | `SPC bd` | kill/close buffer |
 | `SPC bm` | buffer list (ibuffer) |
 
-## Git / Magit  (SPC m...)
+## Git / Magit  (SPC g...)
 | Key | Action |
 |-----|--------|
-| `SPC ms` | git status (main magit view) |
-| `SPC ml` | git log |
-| `SPC mb` | git blame |
-| `SPC md` | git diff |
+| `SPC gs` | git status (main magit view) |
+| `SPC gl` | git log |
+| `SPC gb` | git blame |
+| `SPC gd` | git diff (unstaged changes) |
+| `SPC gS` | show specific commit diff (VS Code style) |
+| `SPC gc` | commit |
+| `SPC gp` | push |
+| `SPC gP` | pull |
+| `SPC gh` / `SPC gH` | next / previous diff hunk (in buffer) |
 | (in magit) `s` | stage file/hunk |
 | (in magit) `u` | unstage |
 | (in magit) `c c` | commit |
 | (in magit) `P p` | push |
 | (in magit) `F p` | pull |
 | (in magit) `b b` | checkout branch |
+| (in magit) `E` | open diff in ediff (side-by-side red/green) |
 | (in magit) `q` | quit magit |
+| (in ediff) `n` / `p` | next / previous hunk |
+| (in ediff) `q` | quit ediff |
+
+### VS Code-style commit diff (side-by-side red/green)
+
+**View a commit's changes:**
+1. `SPC gS` — pick a commit (tab-complete the hash or branch name)
+2. Magit opens showing the full diff with word-level highlights
+3. Press `E` to open it **side-by-side in ediff** — old on left (red), new on right (green)
+
+**Gutter indicators (live in your buffers):**
+- Green bars next to line numbers = added lines
+- Red bars = deleted lines
+- Blue bars = changed lines
+- `SPC gh` / `SPC gH` — jump between hunks without leaving your file
+
+**View unstaged changes:**
+`SPC gd` opens the working-tree diff (what you've changed but haven't staged).
+
+**In ediff (side-by-side view):**
+| Key | Action |
+|-----|--------|
+| `n` / `p` | next / previous hunk |
+| `a` / `b` | copy change from A→B or B→A |
+| `q` | quit ediff |
 
 ## LSP / Eglot  (SPC l... and direct)
 | Key | Action |

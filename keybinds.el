@@ -71,10 +71,16 @@
   "w=" 'balance-windows              ; SPC w=  — equalize window sizes
 
   ;; GIT (magit)
-  "ms" 'magit-status                 ; SPC ms  — git status
-  "ml" 'magit-log                    ; SPC ml  — git log
-  "mb" 'magit-blame                  ; SPC mb  — git blame
-  "md" 'magit-diff                   ; SPC md  — git diff
+  "gs" 'magit-status                 ; SPC gs  — git status
+  "gl" 'magit-log                    ; SPC gl  — git log
+  "gb" 'magit-blame                  ; SPC gb  — git blame
+  "gd" 'magit-diff                   ; SPC gd  — git diff
+  "gS" 'lily/show-commit-diff        ; SPC gS  — show commit changes (VS Code style)
+  "gc" 'magit-commit                 ; SPC gc  — commit
+  "gp" 'magit-push                   ; SPC gp  — push
+  "gP" 'magit-pull                   ; SPC gP  — pull
+  "gh" 'diff-hl-next-hunk            ; SPC gh  — next hunk
+  "gH" 'diff-hl-previous-hunk        ; SPC gH  — prev hunk
 
   ;; COMPILE / ERRORS
   "cc" 'compile                      ; SPC cc  — compile
@@ -97,6 +103,7 @@
   "oc" 'org-capture                  ; SPC oc  — org capture
 
   ;; MISC
+  "dt" 'elcord-mode                  ; SPC dt  — toggle Discord status
   ";" 'execute-extended-command      ; SPC ;   — M-x
   "u" 'universal-argument            ; SPC u   — C-u prefix
 )

@@ -53,6 +53,9 @@
 (define-key evil-outer-text-objects-map "c" (evil-textobj-tree-sitter-get-textobj "class.outer"))
 (define-key evil-inner-text-objects-map "c" (evil-textobj-tree-sitter-get-textobj "class.inner"))
 
+;;; Diff HL (gutter indicators for git changes)
+(rc/require 'diff-hl)
+
 ;;; Magit
 (rc/require 'magit)
 (setq magit-auto-revert-mode nil)
@@ -135,8 +138,10 @@
 (add-hook 'prog-mode-hook 'topsy-mode)
 
 ;;; Theme
-(rc/require 'gruber-darker-theme)
-(load-theme 'gruber-darker t)
+;; (rc/require 'gruber-darker-theme)
+;; (load-theme 'gruber-darker t)
+(rc/require 'doom-themes)
+(load-theme 'doom-one t)
 
 ;;; Clean modeline
 (setq eldoc-minor-mode-string nil)
@@ -149,3 +154,8 @@
 (add-to-list 'eglot-server-programs
              '(java-mode . ("~/.local/share/jdtls/bin/jdtls")))
 (add-hook 'java-mode-hook 'eglot-ensure)
+
+;;; Discord Rich Presence
+(rc/require 'elcord)
+(setq elcord-refresh-rate 15)
+(elcord-mode 1)
