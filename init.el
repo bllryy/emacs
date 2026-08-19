@@ -32,5 +32,18 @@
 (load (expand-file-name "config.el"   user-emacs-directory))
 (load (expand-file-name "keybinds.el" user-emacs-directory))
 
+(let ((env-file (expand-file-name ".env" user-emacs-directory)))
+  (when (file-exists-p env-file)
+    (with-temp-buffer
+      (insert-file-contents env-file)
+      (dolist (line (split-string (buffer-string) "\n" t))
+        (when (string-match "\\`\\s-*\\([A-Za-z_][A-Za-z0-9_]*\\)=\\(.*\\)\\'" line)
+          (setenv (match-string 1 line) (match-string 2 line)))))))
+
+;;(add-to-list 'load-path user-emacs-directory)
+;;(require 'ai-complete)
+;;(setq ai-complete-provider 'deepseek)
+;;(global-ai-complete-mode 1)
+
 (when (file-exists-p custom-file)
   (load-file custom-file))

@@ -158,4 +158,5 @@
 ;;; Discord Rich Presence
 (rc/require 'elcord)
 (setq elcord-refresh-rate 15)
+(setq elcord-idle-message "")
 (elcord-mode 1)

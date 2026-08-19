@@ -188,8 +188,11 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Git command line client
+GIT_EXECUTABLE:FILEPATH=/usr/bin/git
+
 //Path to a program.
-LIBTOOL:FILEPATH=LIBTOOL-NOTFOUND
+LIBTOOL:FILEPATH=/usr/bin/libtool
 
 //Path to a file.
 LIBVTERM_INCLUDE_DIR:PATH=LIBVTERM_INCLUDE_DIR-NOTFOUND
@@ -205,6 +208,9 @@ emacs-libvterm_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 emacs-libvterm_SOURCE_DIR:STATIC=/home/lily/.emacs.d/elpa/vterm-20260706.1652
+
+//Dependencies for the target
+vterm-module_LIB_DEPENDS:STATIC=general;vterm;
 
 
 ########################
@@ -340,6 +346,8 @@ CMAKE_TAPI-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: GIT_EXECUTABLE
+GIT_EXECUTABLE-ADVANCED:INTERNAL=1
 //linker supports push/pop state
 _CMAKE_C_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //linker supports push/pop state
