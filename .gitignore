@@ -52,3 +52,9 @@ flycheck_*.el
 
 # undo-tree
 *.~undo-tree~
+
+/eln-cache/30.1-c7a97098
+
+/auto-save-list
+
+/elpa
